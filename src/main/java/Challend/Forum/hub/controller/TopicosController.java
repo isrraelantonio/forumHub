@@ -1,18 +1,18 @@
 package Challend.Forum.hub.controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import Challend.Forum.hub.domain.topico.DadosTopico;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/topico")
 public class TopicosController {
 
-    @GetMapping
-    public String primeiraRequest(){
-        String ola = "olá mundo venham se divertir de verdade";
-        return  ola;
+    @PostMapping
+    public DadosTopico primeiraRequest(@RequestBody @Valid DadosTopico dados){
+        var topico = new DadosTopico(dados.titulo(), dados.mensagem(),dados.data(),dados.autor(), dados.curso());
+        return topico;
     }
 
 }

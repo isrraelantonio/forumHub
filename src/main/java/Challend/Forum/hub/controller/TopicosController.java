@@ -11,7 +11,7 @@ public class TopicosController {
 
     @GetMapping
     public String primeiraRequest(){
-        String ola = "olá mundo";
+        String ola = "olá mundo venham se divertir de verdade";
         return  ola;
     }
 

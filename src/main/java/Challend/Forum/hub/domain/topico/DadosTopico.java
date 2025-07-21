@@ -15,10 +15,9 @@ public record DadosTopico(
         String titulo,
         @NotBlank
         String mensagem,
-        LocalDateTime data,
-        @NotNull @Valid
-        DadosUsuario autor,
         @NotNull
-        DadosCurso curso
+        Long autor,
+        @NotNull
+        Long curso
 ) {
 }

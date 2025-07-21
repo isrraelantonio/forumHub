@@ -24,7 +24,7 @@ public class Topico {
     private String titulo;
     private String  mensagem;
     private LocalDateTime dataCriacao = LocalDateTime.now();
-    private String estadoDoTopico = "Nenhuma resposta ainda";
+    private boolean estadoDoTopico = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -37,11 +37,10 @@ public class Topico {
     @OneToMany (mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resposta> resposta;
 
-    public Topico(DadosTopico dados) {
-        this.titulo = dados.titulo();
-        this.mensagem = dados.mensagem();
-        this.dataCriacao = dados.data();
-//        this.autor = dados.autor();
-//        this.curso = dados.curso();
+    public Topico(String titulo, String mensagem , Usuario usuario, Curso curso) {
+        this.titulo = titulo;
+        this.mensagem = mensagem;
+        this.autor = usuario;
+        this.curso = curso;
     }
 }

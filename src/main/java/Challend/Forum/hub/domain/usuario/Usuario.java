@@ -25,10 +25,17 @@ public class Usuario {
     private String senha;
 
 
+    // Aqui temos um estabelecimento de relação bidirecional especificando a relação em uma única classe
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "usuario_perfil",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "perfil_id"))
     private List<Perfil> perfil;
+
+    public Usuario(DadosUsuario dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
+    }
 }

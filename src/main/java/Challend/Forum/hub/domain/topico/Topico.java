@@ -21,7 +21,9 @@ import java.util.List;
 public class Topico {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String titulo;
+    @Column(unique = true)
     private String  mensagem;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private boolean estadoDoTopico = true;

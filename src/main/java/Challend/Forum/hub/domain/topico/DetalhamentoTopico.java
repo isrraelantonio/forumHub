@@ -5,6 +5,8 @@ import Challend.Forum.hub.domain.usuario.Usuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
+
 public record DetalhamentoTopico(
 
         Long id,
@@ -15,10 +17,13 @@ public record DetalhamentoTopico(
 
         Long Idautor,
 
-        Long Idcurso
+        Long Idcurso,
+
+        LocalDateTime dataCriacao
                                  ) {
     public DetalhamentoTopico(Topico topico) {
-        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getAutor().getId(), topico.getCurso().getId());
+        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getAutor().getId(), topico.getCurso().getId(), topico.getDataCriacao());
 
     }
+
 }

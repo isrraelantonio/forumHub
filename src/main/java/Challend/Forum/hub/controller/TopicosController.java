@@ -1,6 +1,7 @@
 package Challend.Forum.hub.controller;
 
 
+import Challend.Forum.hub.ValidacaoException;
 import Challend.Forum.hub.domain.topico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/topico")
@@ -35,6 +37,20 @@ public class TopicosController {
     public DetalhamentoTopico atualizarTopico(@RequestBody @Valid DadosTopico dados, @PathVariable Long id){
         var topicoEmSi = criarTopicos.atualizandoTopico(dados, id);
         return topicoEmSi;
+    }
+
+    @Transactional
+    @DeleteMapping("/{id}")
+    public String DeletarTopico(@PathVariable Long id){
+        Optional<Topico> topicoEmSi = Optional.ofNullable(topicoRepository.topicoPeloId(id));
+        if(topicoEmSi.isPresent()){
+            topicoRepository.deleteById(id);
+             String resposta = "Tópico excluído";
+            return resposta;
+        }else {
+             throw new ValidacaoException("O tópico informado já não existe em nosso banco de dados.");
+        }
+
     }
 
 

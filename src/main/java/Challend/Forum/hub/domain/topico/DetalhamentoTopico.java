@@ -15,14 +15,14 @@ public record DetalhamentoTopico(
 
         String mensagem,
 
-        Long Idautor,
+        String nomeAutor,
 
-        Long Idcurso,
+        String nomeCurso,
 
         LocalDateTime dataCriacao
                                  ) {
     public DetalhamentoTopico(Topico topico) {
-        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getAutor().getId(), topico.getCurso().getId(), topico.getDataCriacao());
+        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getAutor().getNome(), topico.getCurso().getNome(), topico.getDataCriacao());
 
     }
 

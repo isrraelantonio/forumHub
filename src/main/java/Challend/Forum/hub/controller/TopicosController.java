@@ -30,8 +30,16 @@ public class TopicosController {
         return topicoEmSi;
     }
 
+    @Transactional
+    @PostMapping("/{id}")
+    public DetalhamentoTopico atualizarTopico(@RequestBody @Valid DadosTopico dados, @PathVariable Long id){
+        var topicoEmSi = criarTopicos.atualizandoTopico(dados, id);
+        return topicoEmSi;
+    }
 
-// Esse é apenas um exemplo em caso que se quisesse apenas exibir uma lista de tópicos.
+
+
+// Esse é apenas um exemplo em caso que se quisesse apenas exibir uma lista de tópicos que não fosse uma paginação.
 //   @GetMapping
 //   public List<DetalhamentoTopico> listagemDeTopicos(){
 //        var detalhesTopico = topicoRepository.findByEstadoDoTopicoTrue().stream()
@@ -42,30 +50,38 @@ public class TopicosController {
 
 // Esa é a forma de retornar uma lista do tipo  page no formato JSON
     @GetMapping
-    public Page<DetalhamentoTopico> listagemDeTopicos(@PageableDefault(sort = "dataCriacao") Pageable paginacao){
-        var paginacaodetalhesTopico = topicoRepository.findByEstadoDoTopicoTrue(paginacao)
-                .map(DetalhamentoTopico::new);
+    public Page<ListagemTopicos> listagemDeTopicos(@PageableDefault(sort = "dataCriacao") Pageable paginacao){
+        var paginacaoListagemtopicos = topicoRepository.findByEstadoDoTopicoTrue(paginacao)
+                .map(ListagemTopicos::new);
 
-        return paginacaodetalhesTopico;
+        return paginacaoListagemtopicos;
 
     }
 
 
     @GetMapping("/{curso}")
-    public Page<DetalhamentoTopico> listagemDeTopicosCurso(@PageableDefault(sort = "dataCriacao") Pageable paginacao,@PathVariable String curso){
-        var paginacaodetalhesTopico = topicoRepository.topicoPeloCurso(paginacao, curso)
-                .map(DetalhamentoTopico::new);
+    public Page<ListagemTopicos> listagemDeTopicosCurso(@PageableDefault(sort = "dataCriacao") Pageable paginacao,@PathVariable String curso){
+        var paginacaoListagemtopicos = topicoRepository.topicoPeloCurso(paginacao, curso)
+                .map(ListagemTopicos::new);
 
-        return paginacaodetalhesTopico;
+        return paginacaoListagemtopicos;
 
     }
 
     @GetMapping("/{curso}/{ano}")
-    public Page<DetalhamentoTopico> topicoPeloano(@PageableDefault(sort = "data_criacao") Pageable paginacao,@PathVariable String ano, @PathVariable String curso){
-        var paginacaodetalhesTopico = topicoRepository.topicoPeloano(paginacao, curso, ano)
-                .map(DetalhamentoTopico::new);
+    public Page<ListagemTopicos> topicoPeloano(@PageableDefault(sort = "data_criacao") Pageable paginacao,@PathVariable String ano, @PathVariable String curso){
+        var paginacaoListagemtopicos = topicoRepository.topicoPeloano(paginacao, curso, ano)
+                .map(ListagemTopicos::new);
 
-        return paginacaodetalhesTopico;
+        return paginacaoListagemtopicos;
+
+    }
+
+    @GetMapping("id/{id}")
+    public DetalhamentoTopico topicoPeloId( @PathVariable Long id){
+        var topicoPeloId = topicoRepository.topicoPeloId(id);
+        var topicoPeloId2 = new DetalhamentoTopico(topicoPeloId);
+        return topicoPeloId2;
 
     }
 

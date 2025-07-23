@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 
 public interface TopicoRepository extends JpaRepository<Topico, Long> {
@@ -33,4 +34,14 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
                   ORDER BY t.data_criacao 
             """, nativeQuery = true)
     Page<Topico> topicoPeloano(Pageable paginacao,String nomeCurso, String ano);
+
+
+
+    @Query("""
+            SELECT t FROM Topico t
+            WHERE 
+            t.estadoDoTopico = true AND
+            t.id = :id
+            """)
+    Topico topicoPeloId(Long id);
 }

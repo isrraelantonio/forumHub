@@ -4,6 +4,7 @@ import Challend.Forum.hub.domain.curso.Curso;
 import Challend.Forum.hub.domain.resposta.Resposta;
 import Challend.Forum.hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,5 +45,14 @@ public class Topico {
         this.mensagem = mensagem;
         this.autor = usuario;
         this.curso = curso;
+    }
+
+
+    public void atualizarDadosTopicos(@Valid DadosTopico dados, Curso curso, Usuario usuario ) {
+        this.titulo = dados.titulo();
+        this.mensagem = dados.mensagem();
+        this.autor = usuario;
+        this.curso = curso;
+
     }
 }

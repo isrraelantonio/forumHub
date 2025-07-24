@@ -23,7 +23,7 @@ public class CriarTopicos {
 
 
 
-    public DetalhamentoTopico criandoTopico(DadosTopico dados){
+    public Topico criandoTopico(DadosTopico dados){
 
         if(!usuarioRepository.existsById(dados.autor())){
             throw  new ValidacaoException("o autor informado não existe!");
@@ -43,7 +43,7 @@ public class CriarTopicos {
 
 
 
-        return new DetalhamentoTopico(topico);
+        return topico;
 
 
 
